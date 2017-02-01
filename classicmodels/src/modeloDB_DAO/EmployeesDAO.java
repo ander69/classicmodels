@@ -125,11 +125,11 @@ public class EmployeesDAO implements Patron_DAO <EmployeesDTO> {
 		}
 		return lista;
 	}
-	public ArrayList<EmployeesDTO> listarTodosOfi(int ofi){
+	public ArrayList<EmployeesDTO> listarTodosOfi(String ofi){
 		ArrayList<EmployeesDTO> lista = new ArrayList<EmployeesDTO>();
 		try{
 			PreparedStatement ps = con.getCon().prepareStatement(SQL_FINDOFI);
-			ps.setInt(1, ofi);
+			ps.setString(1, ofi);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()){
 				EmployeesDTO emp = new EmployeesDTO(rs.getInt("employeeNumber"), rs.getString("lastName"), rs.getString("firstName"), rs.getString("extension"), rs.getString("email") , rs.getString("officeCode") ,rs.getInt("reportsTo") ,rs.getString("jobTitle"));
@@ -140,11 +140,11 @@ public class EmployeesDAO implements Patron_DAO <EmployeesDTO> {
 		}
 		return lista;
 	}
-	public ArrayList<EmployeesDTO> listarTodosCat(int cat){
+	public ArrayList<EmployeesDTO> listarTodosCat(String cat){
 		ArrayList<EmployeesDTO> lista = new ArrayList<EmployeesDTO>();
 		try{
 			PreparedStatement ps = con.getCon().prepareStatement(SQL_FINDCAT);
-			ps.setInt(1, cat);
+			ps.setString(1, cat);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()){
 				EmployeesDTO emp = new EmployeesDTO(rs.getInt("employeeNumber"), rs.getString("lastName"), rs.getString("firstName"), rs.getString("extension"), rs.getString("email") , rs.getString("officeCode") ,rs.getInt("reportsTo") ,rs.getString("jobTitle"));
