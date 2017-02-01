@@ -10,13 +10,15 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import modeloDB_DAO.EmpleadoDAO;
+
 import modeloDB_DAO.EmployeesDAO;
-import modeloDB_DTO.EmpleadoDTO;
+import modeloDB_DTO.EmployeesDTO;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AltaEmpleados extends JDialog {
 
@@ -28,6 +30,7 @@ public class AltaEmpleados extends JDialog {
 	private JTextField tfEmail;
 	private JTextField tfReportsTo;
 	private JTextField tfJobTitle;
+	private JTextField tfOfficeCode;
 
 
 
@@ -87,11 +90,11 @@ public class AltaEmpleados extends JDialog {
 		tfEmail.setColumns(10);
 		
 		JLabel lblReportsto = new JLabel("ReportsTo:");
-		lblReportsto.setBounds(12, 347, 116, 16);
+		lblReportsto.setBounds(12, 370, 116, 16);
 		contentPanel.add(lblReportsto);
 		
 		tfReportsTo = new JTextField();
-		tfReportsTo.setBounds(165, 344, 116, 22);
+		tfReportsTo.setBounds(165, 367, 116, 22);
 		contentPanel.add(tfReportsTo);
 		tfReportsTo.setColumns(10);
 		
@@ -104,15 +107,29 @@ public class AltaEmpleados extends JDialog {
 		contentPanel.add(tfJobTitle);
 		tfJobTitle.setColumns(10);
 		
+		JLabel lblOfficecode = new JLabel("OfficeCode:");
+		lblOfficecode.setBounds(10, 326, 118, 14);
+		contentPanel.add(lblOfficecode);
+		
+		tfOfficeCode = new JTextField();
+		tfOfficeCode.setBounds(165, 323, 116, 20);
+		contentPanel.add(tfOfficeCode);
+		tfOfficeCode.setColumns(10);
+		
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				JButton btAlta = new JButton("Alta");
+				btAlta.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						darAlta();
+					}
+				});
+				btAlta.setActionCommand("OK");
+				buttonPane.add(btAlta);
+				getRootPane().setDefaultButton(btAlta);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
@@ -126,20 +143,26 @@ public class AltaEmpleados extends JDialog {
 	private void darAlta() {
 		try {
 			EmployeesDAO empleDAO = new EmployeesDAO();
-			String LastName = tfLastName.getText();
-			String FirstName = tfFirstName.getText();
-			Date fecha = new Date((new SimpleDateFormat("dd/MM/yyyy")).parse(tfFecha.getText()).getTime());
-			double sueldo = Double.parseDouble(tfSueldo.getText());
-			String dptoString = (String) comboBox.getSelectedItem();
-			int dpto = Integer.parseInt(dptoString.split("-")[0]);
+			int employyeNumber = Integer.parseInt(tfEmployeeNumber.getText());
+			String lastName = tfLastName.getText();
+			String firstName = tfFirstName.getText();
+			String extension = tfExtension.getText();
+			String email = tfEmail.getText();
+			String officeCode = tfOfficeCode.getText();
+			int reportsTo = Integer.parseInt(tfReportsTo.getText());
+			String jobTitle = tfJobTitle.getText();
 
-			EmpleadoDTO empleado = new EmpleadoDTO(0, nombre, apellido, fecha, sueldo, dpto);
+			EmployeesDTO empleado = new EmployeesDTO(employyeNumber, lastName, firstName, extension, email, officeCode, reportsTo, jobTitle);
 			if (empleDAO.insertar(empleado)) {
 				JOptionPane.showMessageDialog(contentPanel, "Empleado creado!");
-				tfNombre.setText("");
-				tfApellido.setText("");
-				tfFecha.setText("");
-				tfSueldo.setText("");
+				tfEmployeeNumber.setText("");
+				tfLastName.setText("");
+				tfFirstName.setText("");
+				tfExtension.setText("");
+				tfEmail.setText("");
+				tfOfficeCode.setText("");
+				tfReportsTo.setText("");
+				tfJobTitle.setText("");
 			} else {
 				JOptionPane.showMessageDialog(contentPanel, "Error al crear empleado!", "Error",
 						JOptionPane.ERROR_MESSAGE);
