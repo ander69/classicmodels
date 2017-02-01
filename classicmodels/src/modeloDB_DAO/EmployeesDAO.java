@@ -155,5 +155,4 @@ public class EmployeesDAO implements Patron_DAO <EmployeesDTO> {
 		}
 		return lista;
 	}
-//test
 }
