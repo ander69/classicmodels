@@ -9,6 +9,7 @@ public class EmployeesDTO {
 	private String officeCode;
 	private int reportsTo;
 	private String jobTitle;
+	
 	public EmployeesDTO(int employeeNumber, String lastName, String firstName, String extension, String email,
 			String officeCode, int reportsTo, String jobTitle) {
 		super();
