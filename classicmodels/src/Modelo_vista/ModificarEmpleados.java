@@ -168,7 +168,7 @@ public class ModificarEmpleados extends JDialog {
 	}
 	private void cargarDatos() {
 
-		EmployeesDTO empleado = empeDAO.buscar(tfEmployeeNumber.getText().toString());
+		EmployeesDTO empleado = empeDAO.buscar(Integer.parseInt(tfEmployeeNumber.getText()));
 		tfLastName.setText(empleado.getLastName());
 		tfFirstName.setText(empleado.getFirstName());
 		tfExtension.setText(empleado.getExtension());
@@ -185,7 +185,6 @@ public class ModificarEmpleados extends JDialog {
 			if(confirmar != 0) {
 				return;
 			}
-			
 			int employyeNumber = Integer.parseInt(tfEmployeeNumber.getText());
 			String lastName = tfLastName.getText();
 			String firstName = tfFirstName.getText();

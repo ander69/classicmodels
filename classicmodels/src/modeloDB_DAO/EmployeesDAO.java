@@ -16,7 +16,7 @@ public class EmployeesDAO implements Patron_DAO <EmployeesDTO> {
 	private static final String SQL_FIND = "SELECT * FROM employees WHERE employeeNumber = ?";
 	private static final String SQL_FINDALL = "SELECT * FROM employees";
 	private static final String SQL_FINDOFI = "SELECT * FROM employees WHERE officeCode = ? ";
-	private static final String SQL_FINDCAT = "SELECT * FROM employees WHERE jobTitle = ? ";
+	private static final String SQL_FINDCAT = "SELECT * FROM employees WHERE jobTitle LIKE ? ";
 	
 	private ConexionSQL con = ConexionSQL.getInstance();
 	
@@ -71,14 +71,15 @@ public class EmployeesDAO implements Patron_DAO <EmployeesDTO> {
 		PreparedStatement ps = null;
 		try{
 			ps = con.getCon().prepareStatement(SQL_UPDATE);
-			ps.setInt(1, t.getEmployeeNumber());
-			ps.setString(2, t.getLastName());
-			ps.setString(3, t.getFirstName());
-			ps.setString(4, t.getExtension());
-			ps.setString(5, t.getEmail());
-			ps.setString(6, t.getOfficeCode());
-			ps.setInt(7, t.getReportsTo());
-			ps.setString(8, t.getJobTitle());
+			
+			ps.setString(1, t.getLastName());
+			ps.setString(2, t.getFirstName());
+			ps.setString(3, t.getExtension());
+			ps.setString(4, t.getEmail());
+			ps.setString(5, t.getOfficeCode());
+			ps.setInt(6, t.getReportsTo());
+			ps.setString(7, t.getJobTitle());
+			ps.setInt(8, t.getEmployeeNumber());
 			
 			if (ps.executeUpdate()>0) return true;
 		} catch (SQLException e) {

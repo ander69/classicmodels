@@ -26,7 +26,7 @@ public class ListarEmpleadosPorCategoria extends JDialog {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private ArrayList<EmployeesDTO> empleados;
 	private EmployeesDAO emp = new EmployeesDAO();
-	private JTable table;
+	private static JTable table;
 	private JRadioButton rbtnSalesManager;
 	private JRadioButton rbtnSalesRep;
 
@@ -94,17 +94,21 @@ public class ListarEmpleadosPorCategoria extends JDialog {
 
 	private void cargarEmpleados() {
 		
+		limpiar();
+		
 		String cat = null;
 		if(rbtnSalesRep.isSelected()){
 			cat="Sales Rep";
 			
-		}else if(rbtnSalesManager.isSelected()){
-			cat="Sales Manager";
+		}
+		if(rbtnSalesManager.isSelected()){
+			
+			cat="Sales Man%";
 			
 		}
 		
 		empleados = emp.listarTodosCat(cat);
-		
+		System.out.println(empleados.size());
 		
 		
 		DefaultTableModel modelo = (DefaultTableModel) table.getModel();
@@ -120,6 +124,15 @@ public class ListarEmpleadosPorCategoria extends JDialog {
 
 			modelo.addRow(fila);
 		}
+	}
+	public static void limpiar(){
+		int fila;
+		DefaultTableModel model = (DefaultTableModel)table.getModel();
+		fila=model.getRowCount();
+		for(int i = 0;i<fila;i++){
+			model.removeRow(0);
+		}
+		
 	}
 
 }

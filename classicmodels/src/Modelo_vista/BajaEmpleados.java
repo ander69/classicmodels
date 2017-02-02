@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
+import javax.swing.text.html.parser.Parser;
 
 import modeloDB_DAO.EmployeesDAO;
 
@@ -151,8 +151,9 @@ public class BajaEmpleados extends JDialog {
 		
 	}
 	private void cargarDatos() {
-		String test;
-		EmployeesDTO empleado = empeDAO.buscar(tfEmployeeNumber.getText().toString());
+	
+
+		EmployeesDTO empleado = empeDAO.buscar(Integer.parseInt(tfEmployeeNumber.getText()));
 		tfLastName.setText(empleado.getLastName());
 		tfFirstName.setText(empleado.getFirstName());
 		tfExtension.setText(empleado.getExtension());
@@ -170,7 +171,7 @@ public class BajaEmpleados extends JDialog {
 				return;
 			}
 			
-			if(empeDAO.borrar(tfEmployeeNumber.getText().toString())) {
+			if(empeDAO.borrar(Integer.parseInt(tfEmployeeNumber.getText()))) {
 				JOptionPane.showMessageDialog(contentPanel, "Empleado eliminado!");
 			} else {
 				JOptionPane.showMessageDialog(contentPanel, "Error al eliminar empleado!", "Error", JOptionPane.ERROR_MESSAGE);
