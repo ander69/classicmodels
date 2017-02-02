@@ -96,13 +96,15 @@ public class ListarEmpleadosPorCategoria extends JDialog {
 		
 		String cat = null;
 		if(rbtnSalesRep.isSelected()){
-			cat="SalesRep";
+			cat="Sales Rep";
 			
 		}else if(rbtnSalesManager.isSelected()){
-			cat="SalesManager";
+			cat="Sales Manager";
+			
 		}
 		
 		empleados = emp.listarTodosCat(cat);
+		
 		
 		
 		DefaultTableModel modelo = (DefaultTableModel) table.getModel();

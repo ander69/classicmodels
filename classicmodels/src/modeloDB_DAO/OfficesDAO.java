@@ -14,7 +14,7 @@ public class OfficesDAO implements Patron_DAO <OfficesDTO>{
 	private static final String SQL_DELETE = "DELETE FROM employees WHERE employeeNumber = ?";
 	private static final String SQL_UPDATE = "UPDATE employees SET lastName = ?,firstName = ?, extension = ?, email = ?, officeCode = ?, reportsTo = ?, jobTitle = ? WHERE employeeNumber = ? ";
 	private static final String SQL_FIND = "SELECT * FROM employees WHERE employeeNumber = ?";
-	private static final String SQL_FINDALL = "SELECT * FROM employees";
+	private static final String SQL_FINDALL = "SELECT * FROM offices";
 
 	private ConexionSQL con = ConexionSQL.getInstance();
 	

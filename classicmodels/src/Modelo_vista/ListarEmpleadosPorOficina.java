@@ -31,11 +31,11 @@ public class ListarEmpleadosPorOficina extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JComboBox<String> comboBox;
 	private JScrollPane scrollPane;
-	private ArrayList<OfficesDTO> oficinas;
-	private OfficesDAO ofi = new OfficesDAO();
+	//private ArrayList<OfficesDTO> oficinas;
+	//private OfficesDAO ofi = new OfficesDAO();
 	private ArrayList<EmployeesDTO> empleados;
 	private EmployeesDAO emp = new EmployeesDAO();
-	private JTable table;
+	private static JTable table;
 
 	
 
@@ -98,19 +98,25 @@ public class ListarEmpleadosPorOficina extends JDialog {
 	}
 	private void cargarOficinas() {
 		OfficesDAO OffiDAO = new OfficesDAO();
+	
 		List<OfficesDTO> offis = OffiDAO.listarTodos();
+		
 		String[] Oficinas = new String[offis.size()];
+		
 		for(int i=0; i<offis.size(); i++) {
 			OfficesDTO dpt = offis.get(i);
 			Oficinas[i] = dpt.getOfficeCode();
+			
 		}
+		
 		comboBox.setModel(new DefaultComboBoxModel<String>(Oficinas));
 	}
+	
 	private void cargarTabla() {
+		limpiar();
 		
 	
 
-		
 		empleados = emp.listarTodosOfi(comboBox.getSelectedItem().toString());
 		
 		
@@ -127,5 +133,14 @@ public class ListarEmpleadosPorOficina extends JDialog {
 
 			modelo.addRow(fila);
 		}
+	}
+	public static void limpiar(){
+		int fila;
+		DefaultTableModel model = (DefaultTableModel)table.getModel();
+		fila=model.getRowCount();
+		for(int i = 0;i<fila;i++){
+			model.removeRow(0);
+		}
+		
 	}
 }

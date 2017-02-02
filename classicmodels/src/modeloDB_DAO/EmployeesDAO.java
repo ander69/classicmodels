@@ -111,6 +111,7 @@ public class EmployeesDAO implements Patron_DAO <EmployeesDTO> {
 	public ArrayList<EmployeesDTO> listarTodos() {
 		ArrayList<EmployeesDTO> lista = new ArrayList<EmployeesDTO>();
 		try {
+			
 			PreparedStatement ps = con.getCon().prepareStatement(SQL_FINDALL);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -118,6 +119,7 @@ public class EmployeesDAO implements Patron_DAO <EmployeesDTO> {
 						rs.getString("firstName"), rs.getString("extension"), rs.getString("email"),
 						rs.getString("officeCode"), rs.getInt("reportsTo"), rs.getString("jobTitle"));
 				lista.add(emp);
+				
 			}
 
 		} catch (SQLException e) {
@@ -133,6 +135,7 @@ public class EmployeesDAO implements Patron_DAO <EmployeesDTO> {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()){
 				EmployeesDTO emp = new EmployeesDTO(rs.getInt("employeeNumber"), rs.getString("lastName"), rs.getString("firstName"), rs.getString("extension"), rs.getString("email") , rs.getString("officeCode") ,rs.getInt("reportsTo") ,rs.getString("jobTitle"));
+				lista.add(emp);
 			}
 			
 		} catch (SQLException e) {
@@ -143,12 +146,16 @@ public class EmployeesDAO implements Patron_DAO <EmployeesDTO> {
 	public ArrayList<EmployeesDTO> listarTodosCat(String cat){
 		ArrayList<EmployeesDTO> lista = new ArrayList<EmployeesDTO>();
 		try{
+			
 			PreparedStatement ps = con.getCon().prepareStatement(SQL_FINDCAT);
 			ps.setString(1, cat);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()){
 				EmployeesDTO emp = new EmployeesDTO(rs.getInt("employeeNumber"), rs.getString("lastName"), rs.getString("firstName"), rs.getString("extension"), rs.getString("email") , rs.getString("officeCode") ,rs.getInt("reportsTo") ,rs.getString("jobTitle"));
+				lista.add(emp);
+				
 			}
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
