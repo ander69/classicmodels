@@ -17,6 +17,8 @@ import javax.swing.table.DefaultTableModel;
 import modeloDB_DAO.EmployeesDAO;
 
 import modeloDB_DTO.EmployeesDTO;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ListarEmpleados extends JDialog {
 
@@ -63,6 +65,11 @@ public class ListarEmpleados extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
