@@ -51,5 +51,9 @@ public class PantallaPrincipal extends JFrame {
 		});
 		btnGestionDePersonal.setBounds(31, 39, 208, 25);
 		contentPane.add(btnGestionDePersonal);
+		
+		JButton btnOffices = new JButton("Offices");
+		btnOffices.setBounds(31, 101, 208, 23);
+		contentPane.add(btnOffices);
 	}
 }

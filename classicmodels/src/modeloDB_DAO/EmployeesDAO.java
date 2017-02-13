@@ -17,7 +17,7 @@ public class EmployeesDAO implements Patron_DAO <EmployeesDTO> {
 	private static final String SQL_FINDALL = "SELECT * FROM employees";
 	private static final String SQL_FINDOFI = "SELECT * FROM employees WHERE officeCode = ? ";
 	private static final String SQL_FINDCAT = "SELECT * FROM employees WHERE jobTitle LIKE ? ";
-	
+	private static final String SQL_FINDEMP = "SELECT COUNT (*) FROM employees WHERE officeCode = ? ";
 	private ConexionSQL con = ConexionSQL.getInstance();
 	
 	public boolean insertar(EmployeesDTO dto){
@@ -163,4 +163,19 @@ public class EmployeesDAO implements Patron_DAO <EmployeesDTO> {
 		}
 		return lista;
 	}
+	public int NumeroEmpleados(int ofi){
+		int Num = 0;
+		try{
+			PreparedStatement ps = con.getCon().prepareStatement(SQL_FINDEMP);
+			ps.setInt(1,ofi);
+			ResultSet rs = ps.executeQuery();
+			Num = (Integer) rs.getObject(1);
+	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Num;
+	}
+			
+	
 }

@@ -10,10 +10,10 @@ import modeloDB_DTO.OfficesDTO;
 
 public class OfficesDAO implements Patron_DAO <OfficesDTO>{
 	
-	private static final String SQL_INSERT = "INSERT INTO employees (employeeNumber, lastName, firstName, extension, email, officeCode, reportsTo, jobTitle) VALUES(?,?,?,?,?,?,?,?)";
-	private static final String SQL_DELETE = "DELETE FROM employees WHERE employeeNumber = ?";
-	private static final String SQL_UPDATE = "UPDATE employees SET lastName = ?,firstName = ?, extension = ?, email = ?, officeCode = ?, reportsTo = ?, jobTitle = ? WHERE employeeNumber = ? ";
-	private static final String SQL_FIND = "SELECT * FROM employees WHERE employeeNumber = ?";
+	private static final String SQL_INSERT = "INSERT INTO offices (officeCode, city, phone, addressLine1, addressLine2, state, country, postalCode, territory) VALUES(?,?,?,?,?,?,?,?,?)";
+	private static final String SQL_DELETE = "DELETE FROM offices WHERE employeeNumber = ?";
+	private static final String SQL_UPDATE = "UPDATE offices SET city = ?,phone = ?, addressLine1 = ?, addressLine2 = ?, state = ?, country = ?, postalCode = ?, territory = ? WHERE officeCode = ? ";
+	private static final String SQL_FIND = "SELECT * FROM offices WHERE officeCode = ?";
 	private static final String SQL_FINDALL = "SELECT * FROM offices";
 
 	private ConexionSQL con = ConexionSQL.getInstance();
