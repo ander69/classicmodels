@@ -31,26 +31,25 @@ import java.awt.event.ActionEvent;
 public class ListarEmpleadosEnCadaOficina extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTable table;
+	private static JTable table;
 	private JTextField tfCity;
+	private ArrayList<EmployeesDTO> empleados;
+	private EmployeesDAO emp = new EmployeesDAO();
+	private int office;
+	private String city;
+	
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			ListarEmpleadosEnCadaOficina dialog = new ListarEmpleadosEnCadaOficina();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	/**
 	 * Create the dialog.
 	 */
-	public ListarEmpleadosEnCadaOficina() {
+	public ListarEmpleadosEnCadaOficina(int office ,String city) {
+		this.city = city;
+		this.office = office;
 		setBounds(100, 100, 549, 397);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -90,6 +89,38 @@ public class ListarEmpleadosEnCadaOficina extends JDialog {
 				buttonPane.add(btnVolver);
 			}
 		}
+		this.setVisible(true);
+		cargarTabla();
+		
+	}
+	private void cargarTabla() {
+		limpiar();
+		
+	
+
+		empleados = emp.listarTodosOfi(Integer.toString(office));
+		tfCity.setText(city);
+		
+		DefaultTableModel modelo = (DefaultTableModel) table.getModel();
+		int numcols = modelo.getColumnCount();
+		for (EmployeesDTO emp : empleados) {
+			Object[] fila = new Object[numcols];
+			fila[0] = emp.getEmployeeNumber();
+			fila[1] = emp.getLastName()+" "+emp.getFirstName();
+			fila[2] = emp.getEmail();
+			fila[3] = emp.getJobTitle();
+			modelo.addRow(fila);
+		}
+	}
+	public static void limpiar(){
+		int fila;
+		DefaultTableModel model = (DefaultTableModel)table.getModel();
+		fila=model.getRowCount();
+		for(int i = 0;i<fila;i++){
+			model.removeRow(0);
+		}
 		
 	}
 }
+
+

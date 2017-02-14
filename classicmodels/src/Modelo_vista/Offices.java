@@ -189,6 +189,11 @@ public class Offices extends JDialog {
 		tfEmpleados.setColumns(10);
 		
 		JButton btnVerEmpleados = new JButton("Ver Empleados");
+		btnVerEmpleados.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new ListarEmpleadosEnCadaOficina(Integer.parseInt((tfOffices.getText())) ,tfCity.getText());
+			}
+		});
 		btnVerEmpleados.setBounds(531, 269, 114, 23);
 		contentPanel.add(btnVerEmpleados);
 		{

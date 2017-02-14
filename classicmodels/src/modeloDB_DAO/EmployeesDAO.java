@@ -175,8 +175,7 @@ public class EmployeesDAO implements Patron_DAO <EmployeesDTO> {
 			PreparedStatement ps = con.getCon().prepareStatement(SQL_FINDEMP);
 			
 			ps.setString(1, ofi);
-			ResultSet rs = ps.executeQuery();
-			System.out.println("aqui");			
+			ResultSet rs = ps.executeQuery();		
 			 while (rs.next()){
                  Num = rs.getInt(1);
              }
