@@ -53,6 +53,11 @@ public class PantallaPrincipal extends JFrame {
 		contentPane.add(btnGestionDePersonal);
 		
 		JButton btnOffices = new JButton("Offices");
+		btnOffices.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new Offices();
+			}
+		});
 		btnOffices.setBounds(31, 101, 208, 23);
 		contentPane.add(btnOffices);
 	}

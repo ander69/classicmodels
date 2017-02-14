@@ -87,7 +87,7 @@ public class Offices extends JDialog {
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int posicionActual = Integer.parseInt(tfOffices.getText());
-				if(posicionActual>=officeslist.size()){
+				if(posicionActual>=officeslist.size()-1){
 					posicionActual=0;
 				}
 				posicionActual++;
@@ -101,7 +101,7 @@ public class Offices extends JDialog {
 		JButton btnUltimo = new JButton(">>");
 		btnUltimo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cargarDatos(officeslist.size());
+				cargarDatos(officeslist.size()-1);
 			}
 		});
 		btnUltimo.setBounds(463, 31, 89, 23);
@@ -225,7 +225,7 @@ public class Offices extends JDialog {
 		tfCountry.setText(office.getCountry());
 		tfPostalCode.setText(office.getPostalCode());
 		tfTerritory.setText(office.getTerritory());	
-		tfEmpleados.setText(Integer.toString(emp.NumeroEmpleados(pos)));
+		tfEmpleados.setText(Integer.toString(emp.NumeroEmpleados(Integer.toString(pos))));
 
 	}
 }

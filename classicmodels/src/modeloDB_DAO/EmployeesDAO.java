@@ -5,6 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.naming.spi.DirStateFactory.Result;
+
+import com.mysql.jdbc.ResultSetRow;
+
 import conexion.ConexionSQL;
 
 import modeloDB_DTO.EmployeesDTO;
@@ -17,7 +21,7 @@ public class EmployeesDAO implements Patron_DAO <EmployeesDTO> {
 	private static final String SQL_FINDALL = "SELECT * FROM employees";
 	private static final String SQL_FINDOFI = "SELECT * FROM employees WHERE officeCode = ? ";
 	private static final String SQL_FINDCAT = "SELECT * FROM employees WHERE jobTitle LIKE ? ";
-	private static final String SQL_FINDEMP = "SELECT COUNT (*) FROM employees WHERE officeCode = ? ";
+	private static final String SQL_FINDEMP = "SELECT COUNT(*) FROM employees WHERE officeCode = ? ";
 	private ConexionSQL con = ConexionSQL.getInstance();
 	
 	public boolean insertar(EmployeesDTO dto){
@@ -163,13 +167,22 @@ public class EmployeesDAO implements Patron_DAO <EmployeesDTO> {
 		}
 		return lista;
 	}
-	public int NumeroEmpleados(int ofi){
+	public int NumeroEmpleados(String ofi){
+		
 		int Num = 0;
 		try{
 			PreparedStatement ps = con.getCon().prepareStatement(SQL_FINDEMP);
-			ps.setInt(1,ofi);
+			
+			ps.setString(1, ofi);
 			ResultSet rs = ps.executeQuery();
-			Num = (Integer) rs.getObject(1);
+			System.out.println("aqui");
+			
+			//Num= rs.();
+			
+			
+			
+			System.out.println("aqui");
+			System.out.println(Num);
 	
 		} catch (SQLException e) {
 			e.printStackTrace();
