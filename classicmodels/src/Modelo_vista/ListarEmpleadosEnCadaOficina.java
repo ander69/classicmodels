@@ -50,14 +50,14 @@ public class ListarEmpleadosEnCadaOficina extends JDialog {
 	public ListarEmpleadosEnCadaOficina(int office ,String city) {
 		this.city = city;
 		this.office = office;
-		setBounds(100, 100, 549, 397);
+		setBounds(100, 100, 835, 426);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(69, 77, 400, 203);
+		scrollPane.setBounds(69, 77, 672, 203);
 		contentPanel.add(scrollPane);
 		
 		table = new JTable();
@@ -85,6 +85,11 @@ public class ListarEmpleadosEnCadaOficina extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnVolver = new JButton("Volver");
+				btnVolver.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				btnVolver.setActionCommand("Cancel");
 				buttonPane.add(btnVolver);
 			}

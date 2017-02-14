@@ -45,7 +45,7 @@ public class Offices extends JDialog {
 	 * Create the dialog.
 	 */
 	public Offices() {
-		setBounds(100, 100, 716, 386);
+		setBounds(100, 100, 822, 478);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -73,9 +73,10 @@ public class Offices extends JDialog {
 		btnAnterior.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int posicionActual = Integer.parseInt(tfOffices.getText());
-				if(posicionActual <=0){
-					posicionActual=officeslist.size();
+				if(posicionActual <=1){
+					posicionActual=officeslist.size()+1;
 				}
+				posicionActual--;
 				posicionActual--;
 				cargarDatos(posicionActual);
 			}
@@ -87,10 +88,11 @@ public class Offices extends JDialog {
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int posicionActual = Integer.parseInt(tfOffices.getText());
-				if(posicionActual>=officeslist.size()-1){
+				if(posicionActual>=officeslist.size()){
+					
 					posicionActual=0;
 				}
-				posicionActual++;
+				//posicionActual++;
 				cargarDatos(posicionActual);
 				
 			}
@@ -112,25 +114,25 @@ public class Offices extends JDialog {
 		contentPanel.add(lblCity);
 		
 		tfCity = new JTextField();
-		tfCity.setBounds(59, 120, 46, 20);
+		tfCity.setBounds(63, 120, 102, 20);
 		contentPanel.add(tfCity);
 		tfCity.setColumns(10);
 		
 		JLabel lblPhone = new JLabel("Phone:");
-		lblPhone.setBounds(130, 123, 46, 14);
+		lblPhone.setBounds(188, 123, 46, 14);
 		contentPanel.add(lblPhone);
 		
 		tfPhone = new JTextField();
-		tfPhone.setBounds(166, 120, 86, 20);
+		tfPhone.setBounds(231, 120, 123, 20);
 		contentPanel.add(tfPhone);
 		tfPhone.setColumns(10);
 		
 		JLabel lblAddressline = new JLabel("AddressLine:");
-		lblAddressline.setBounds(265, 123, 68, 14);
+		lblAddressline.setBounds(367, 123, 86, 14);
 		contentPanel.add(lblAddressline);
 		
 		tfAddressLine = new JTextField();
-		tfAddressLine.setBounds(329, 120, 316, 20);
+		tfAddressLine.setBounds(446, 120, 316, 20);
 		contentPanel.add(tfAddressLine);
 		tfAddressLine.setColumns(10);
 		
@@ -144,7 +146,7 @@ public class Offices extends JDialog {
 		tfState.setColumns(10);
 		
 		JLabel lblCountry = new JLabel("Country:");
-		lblCountry.setBounds(188, 200, 46, 14);
+		lblCountry.setBounds(187, 200, 55, 14);
 		contentPanel.add(lblCountry);
 		
 		tfCountry = new JTextField();
@@ -162,11 +164,11 @@ public class Offices extends JDialog {
 		tfPostalCode.setColumns(10);
 		
 		JLabel lblTerritory = new JLabel("Territory:");
-		lblTerritory.setBounds(513, 200, 46, 14);
+		lblTerritory.setBounds(513, 200, 60, 14);
 		contentPanel.add(lblTerritory);
 		
 		tfTerritory = new JTextField();
-		tfTerritory.setBounds(569, 197, 86, 20);
+		tfTerritory.setBounds(585, 197, 86, 20);
 		contentPanel.add(tfTerritory);
 		tfTerritory.setColumns(10);
 		
@@ -180,7 +182,7 @@ public class Offices extends JDialog {
 		tfRecaudado.setColumns(10);
 		
 		JLabel lblNEmpleados = new JLabel("N\u00BA Empleados:");
-		lblNEmpleados.setBounds(329, 273, 81, 14);
+		lblNEmpleados.setBounds(323, 273, 89, 14);
 		contentPanel.add(lblNEmpleados);
 		
 		tfEmpleados = new JTextField();
@@ -191,10 +193,10 @@ public class Offices extends JDialog {
 		JButton btnVerEmpleados = new JButton("Ver Empleados");
 		btnVerEmpleados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new ListarEmpleadosEnCadaOficina(Integer.parseInt((tfOffices.getText())) ,tfCity.getText());
+				new ListarEmpleadosEnCadaOficina(Integer.parseInt((tfOffices.getText()))-1 ,tfCity.getText());
 			}
 		});
-		btnVerEmpleados.setBounds(531, 269, 114, 23);
+		btnVerEmpleados.setBounds(531, 269, 129, 23);
 		contentPanel.add(btnVerEmpleados);
 		{
 			JPanel buttonPane = new JPanel();
@@ -202,6 +204,11 @@ public class Offices extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btVolver = new JButton("Volver");
+				btVolver.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						dispose();
+					}
+				});
 				btVolver.setActionCommand("Cancel");
 				buttonPane.add(btVolver);
 			}
@@ -221,8 +228,9 @@ public class Offices extends JDialog {
 		
 	}
 	private void cargarDatos(int pos){
+		double totalrecaudado;
 		OfficesDTO office =  officeslist.get(pos);
-		tfOffices.setText(Integer.toString(pos));
+		tfOffices.setText(Integer.toString(pos+1));
 		tfCity.setText(office.getCity());
 		tfPhone.setText(office.getPhone());
 		tfAddressLine.setText(office.getAddressLine1()+"-"+office.getAddressLine2());
@@ -231,6 +239,7 @@ public class Offices extends JDialog {
 		tfPostalCode.setText(office.getPostalCode());
 		tfTerritory.setText(office.getTerritory());	
 		tfEmpleados.setText(Integer.toString(emp.NumeroEmpleados(Integer.toString(pos))));
-
+		totalrecaudado= emp.CalcularRecaudacionOficina(Integer.toString(pos));
+		tfRecaudado.setText(String.format("%.2f", totalrecaudado));
 	}
 }

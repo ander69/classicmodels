@@ -23,6 +23,7 @@ public class EmployeesDAO implements Patron_DAO <EmployeesDTO> {
 	private static final String SQL_FINDOFI = "SELECT * FROM employees WHERE officeCode = ? ";
 	private static final String SQL_FINDCAT = "SELECT * FROM employees WHERE jobTitle LIKE ? ";
 	private static final String SQL_FINDEMP = "SELECT COUNT(*) FROM employees WHERE officeCode = ? ";
+	private static final String SQL_SUMAMO = "SELECT sum(amount) FROM payments WHERE customerNumber in(SELECT customerNumber FROM customers WHERE salesRepEmployeeNumber in(SELECT employeeNumber FROM employees WHERE officeCode = ?))";
 	private ConexionSQL con = ConexionSQL.getInstance();
 	
 	public boolean insertar(EmployeesDTO dto){
@@ -170,21 +171,37 @@ public class EmployeesDAO implements Patron_DAO <EmployeesDTO> {
 	}
 	public int NumeroEmpleados(String ofi){
 		
-		int Num = 0;
+		int num = 0;
 		try{
 			PreparedStatement ps = con.getCon().prepareStatement(SQL_FINDEMP);
-			
 			ps.setString(1, ofi);
 			ResultSet rs = ps.executeQuery();		
 			 while (rs.next()){
-                 Num = rs.getInt(1);
+                 num = rs.getInt(1);
              }
 
 	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return Num;
+		return num;
+	}
+	public double CalcularRecaudacionOficina(String ofi){
+		double num = 0;
+		try{
+			PreparedStatement ps = con.getCon().prepareStatement(SQL_SUMAMO);
+			ps.setString(1, ofi);
+			ResultSet rs = ps.executeQuery();		
+			 while (rs.next()){
+                 num = rs.getDouble(1);
+             }
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return num;
+		
 	}
 			
 	
