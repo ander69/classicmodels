@@ -2,6 +2,7 @@ package modeloDB_DAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -175,14 +176,11 @@ public class EmployeesDAO implements Patron_DAO <EmployeesDTO> {
 			
 			ps.setString(1, ofi);
 			ResultSet rs = ps.executeQuery();
-			System.out.println("aqui");
-			
-			//Num= rs.();
-			
-			
-			
-			System.out.println("aqui");
-			System.out.println(Num);
+			System.out.println("aqui");			
+			 while (rs.next()){
+                 Num = rs.getInt(1);
+             }
+
 	
 		} catch (SQLException e) {
 			e.printStackTrace();
